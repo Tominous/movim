@@ -138,9 +138,9 @@ class Message extends Model
         }
 
         if ($stanza->body || $stanza->subject) {
-            /*if (isset($stanza->attributes()->id)) {
+            if (isset($stanza->attributes()->id)) {
                 $this->id = (string)$stanza->attributes()->id;
-            }*/
+            }
 
             if ($stanza->body) {
                 $this->body = (string)$stanza->body;
@@ -302,7 +302,7 @@ class Message extends Model
                 $this->jidfrom = current(explode('/', (string)$stanza->x->invite->attributes()->from));
             }
 
-            //return $this->checkPicture();
+            return $this->checkPicture();
         } elseif (isset($stanza->x)
             && $stanza->x->attributes()->xmlns == 'jabber:x:conference') {
             $this->type = 'invitation';
@@ -366,7 +366,7 @@ class Message extends Model
 
     public function isTrusted()
     {
-        /*$rd = new \Modl\RosterLinkDAO;
+        $rd = new \Modl\RosterLinkDAO;
         $from = explode('@', cleanJid((string)$this->jidfrom));
         $from = explode('.', end($from));
 
@@ -374,7 +374,7 @@ class Message extends Model
 
         return ($this->session == $this->jidfrom
             || end($session) == $from[count($from)-2].'.'.$from[count($from)-1]
-            || $rd->get($this->jidfrom) !== null);*/
+            || $rd->get($this->jidfrom) !== null);
     }
 
     public function isEmpty()
